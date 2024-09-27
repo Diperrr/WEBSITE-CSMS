@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Supplier, Barang, Laporan, Gudang};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Activitylog\Models\Activity;
@@ -18,15 +17,7 @@ class DashboardController extends Controller
     */
     public function index()
     {
-        return view('admin.dashboard', [
-            'supplier' => Supplier::count(),
-            'jumlah_gudang' => Gudang::count(),
-            'jumlah_barang' => (int)Barang::sum('jumlah'),
-            'in_out' => Laporan::sum('jumlah'),
-            'gudangs' => Gudang::get(),
-            'barangs' => Barang::get(),
-            'data' => Laporan::latest()->limit(6)->get()
-        ]);
+        return view('admin.dashboard');
     }
 
     /**

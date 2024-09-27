@@ -18,12 +18,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'username',
-        'password',
-        'avatar'
-    ];
+    protected $guarded = ['id'];
 
     protected static $logAttributes = ['name', 'username'];
 
@@ -63,4 +58,14 @@ class User extends Authenticatable
     {
         return $this->hasRole('Admin');
     }
+
+    public function kuesioners()
+    {
+        return $this->hasMany(Kuesioner::class);
+    }
+
+    public function kuesionerResponses()
+{
+    return $this->hasMany(KuesionerResponse::class);
+}
 }

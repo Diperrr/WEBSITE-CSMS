@@ -1,12 +1,12 @@
 <?php
-  
+
 namespace Database\Seeders;
-  
+
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-  
+
 class CreateAdminUserSeeder extends Seeder
 {
     /**
@@ -16,29 +16,54 @@ class CreateAdminUserSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::create([
-            'name' => 'FikriDev', 
+        // Creating the Admin user
+        $adminUser = User::create([
+            'name' => 'Frank',
             'username' => 'admin',
             'password' => bcrypt('admin123')
         ]);
-    
-        $role = Role::create(['name' => 'Admin']);
-     
-        $permissions = Permission::pluck('id','id')->all();
-   
-        $role->syncPermissions($permissions);
-     
-        $user->assignRole([$role->id]);
 
+        // Creating the Admin role
+        $adminRole = Role::create(['name' => 'Admin']);
+
+        // Assigning all permissions to the Admin role
+        $permissions = Permission::pluck('id', 'id')->all();
+        $adminRole->syncPermissions($permissions);
+
+        // Assigning the Admin role to the user
+        $adminUser->assignRole([$adminRole->id]);
+
+        // Creating all roles including the User role
         $this->createAllRoles();
+
+        // Creating the regular user with the 'User' role
+        $this->createRegularUser();
     }
 
     public function createAllRoles()
     {
+        // Creating other roles
         $staffGudang = Role::create(['name' => 'Staff Gudang']);
         $staffBarang = Role::create(['name' => 'Staff Barang']);
+        $userRole = Role::create(['name' => 'User']); // Adding User role
 
+        // Syncing specific permissions to each role
         $staffGudang->syncPermissions([12]);
         $staffBarang->syncPermissions([11]);
+        $userRole->syncPermissions([]); // Assign specific permissions or leave empty for no specific permissions
+    }
+
+    public function createRegularUser()
+    {
+        // Creating a regular user
+        $regularUser = User::create([
+            'name' => 'RegularUser',
+            'username' => 'user',
+            'password' => bcrypt('user123')
+        ]);
+
+        // Assigning the 'User' role to the regular user
+        $userRole = Role::where('name', 'User')->first();
+        $regularUser->assignRole([$userRole->id]);
     }
 }

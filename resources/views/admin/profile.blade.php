@@ -27,10 +27,8 @@
 
                         <input type="file" name="avatar">
                 		<x-input type="text" text="Full Name" name="name" value="{{ auth()->user()->name }}" />
-
 	                	<x-input type="password" text="Old Password" name="old_password" />
 	                	<x-input type="password" text="New Password" name="new_password" />
-
 	                	<div class="text-center">
 	                		<x-button type="primary" for="submit" text="Update Profile" />
 	                	</div>

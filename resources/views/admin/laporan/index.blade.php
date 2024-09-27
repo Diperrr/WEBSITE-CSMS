@@ -9,34 +9,41 @@
 	@endif
 
 	<x-card>
-		<x-slot name="title">Semua Laporan</x-slot>
+    <x-slot name="title">Detail Pengguna</x-slot>
 
-		<table class="table table-hover mb-3">
-			<thead>
-				<th>Nama Barang</th>
-				<th>Dari/Kepada</th>
-				<th>Harga</th>
-				<th>Stok</th>
-				<th>Berat</th>
-				<th>Tanggal</th>
-				<th>Aksi</th>
-			</thead>
-			<tbody>
-				@foreach ($data as $row)
-					<tr>
-						<td>{{ $row->nama }}</td>
-						<td>{{ $row->orang }}</td>
-						<td>{{ $row->harga }}</td>
-						<td>{{ $row->jumlah }}</td>
-						<td>{{ $row->berat }}kg</td>
-						<td>{{ $row->created_at->format('d-m-Y') }}</td>
-						<td><span class="badge badge-{{ ($row->jenis == 'Barang Masuk') ? 'success' : 'danger' }}">{{ $row->jenis }}</span></td>
-					</tr>
-				@endforeach
-				
-			</tbody>
-		</table>
-	</x-card>
+    <table class="table table-hover mb-3">
+        <thead>
+            <th>Nama Perusahaan</th>
+            <th>Alamat Pos</th>
+            <th>Nomor Telephone/Fax</th>
+            <th>Email</th>
+            <th>Pekerjaan</th>
+            <th>Sertifikat</th>
+        </thead>
+		<tbody>
+			@foreach ($data as $user)
+				<tr>
+					<td>{{ $user->name }}</td>
+					<td>{{ $user->alamat_pos }}</td>
+					<td>{{ $user->nomor }}</td>
+					<td>{{ $user->email }}</td>
+					<td>{{ $user->pekerjaan }}</td>
+					<td>
+						@if($user->certificate)
+							<a href="{{ asset('public/storage/app/public/' . $user->certificate) }}" target="_blank">
+								Lihat Sertifikat
+							</a>
+						@else
+							Tidak ada sertifikat
+						@endif
+					</td>
+				</tr>
+			@endforeach
+		</tbody>
+			
+    </table>
+</x-card>
+
 
 	
 

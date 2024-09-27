@@ -13,6 +13,9 @@
         <link href="{{ asset('dist/vendor/swal2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('dist/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
         <link href="{{ asset('dist/css/ruang-admin.min.css') }}" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
         {{ ($head) ?? '' }}
     </head>
 
@@ -61,6 +64,8 @@
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
         </a>
+
+        @stack('script')
 
         <script src="{{ asset('dist/vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('dist/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
